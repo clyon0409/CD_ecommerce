@@ -45,9 +45,9 @@
    	<div class="container">
    		<div class="row">
 			  <div class="col-xs-6 col-md-11"><h3>Edit Product - ID 2</h3></div>
-			  <div class="col-xs-6 col-md-1"><span class="glyphicon glyphicon-remove text-bottom" aria-hidden="true"></div>
+			  <div class="col-xs-6 col-md-1"><a href='/admins/close'><span class="glyphicon glyphicon-remove text-bottom" aria-hidden="true"></a></div>
 		</div>
-   		<form class="form-horizontal">
+   		<form class="form-horizontal" action='/admins/update_product' method='post'>
 			  <div class="form-group">
 			    <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
 			    <div class="col-sm-10">
@@ -164,13 +164,13 @@
 					  <div class="col-md-4">
 							<div class="row button_row">
 							      <div class="col-xs-8 col-sm-4">
-							        <button type="button" class="btn btn-default">Cancel</button>
+							        <a type="button" class="btn btn-default" href='/admins/cancel'>Cancel</a>
 							      </div>
 							      <div class="col-xs-4 col-sm-4">
-							       <button type="button" class="btn btn-success">Preview</button>
+							       <a type="button" class="btn btn-success" href='/admins/preview'>Preview</a>
 							      </div>
 							      <div class="col-xs-4 col-sm-4">
-							        <button type="button" class="btn btn-info">Update</button>
+							        <input type="submit" class="btn btn-info" name='submit' value='Update'>
 							      </div>
 						    </div>
 					  </div>

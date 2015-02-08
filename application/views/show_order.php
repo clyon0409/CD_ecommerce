@@ -60,13 +60,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Dojo eCommerce</a>
+          <a class="navbar-brand">Dojo eCommerce</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#about">Orders</a></li>
-            <li><a class="active" href="#contact">Products</a></li>
+            <li><a>Dashboard</a></li>
+            <li><a href="/admins/orders">Orders</a></li>
+            <li><a class="active" href="/admins/products">Products</a></li>
             <li><a href="#contact"></a></li>
             <li><a href="#contact"></a></li>
             <li><a href="#contact"></a></li>
@@ -93,7 +93,7 @@
             <li><a href="#contact"></a></li>
             <li><a href="#contact"></a></li>
             <li><a href="#contact"></a></li>
-            <li><a href="#contact">Log Off</a></li>
+            <li><a href="/admins/index">Log Off</a></li>
           </ul>
         </div><!--/.nav-collapse -->
     </nav>

@@ -61,10 +61,10 @@
 			 		<td>
 			 			<div class="row">
 						    <div class="col-xs-8 col-sm-6">
-						        <a class='text-center' href='#'>edit</a>
+						        <a class='text-center' href='/admins/edit'>edit</a>
 						    </div>
 						    <div class="col-xs-4 col-sm-6">
-						        <a class='text-center' href='#'>delete</a>
+						        <a class='text-center' href='/admins/delete'>delete</a>
 						    </div>
 						</div>
 					</td>
@@ -78,10 +78,10 @@
 			 		<td>
 			 			<div class="row">
 						    <div class="col-xs-8 col-sm-6">
-						        <a class='text-center' href='#'>edit</a>
+						        <a class='text-center' href='/admins/edit'>edit</a>
 						    </div>
 						    <div class="col-xs-4 col-sm-6">
-						        <a class='text-center' href='#'>delete</a>
+						        <a class='text-center' href='/admins/delete'>delete</a>
 						    </div>
 						</div>
 					</td>
@@ -95,10 +95,10 @@
 			 		<td>
 			 			<div class="row">
 						    <div class="col-xs-8 col-sm-6">
-						        <a class='text-center' href='#'>edit</a>
+						        <a class='text-center' href='/admins/edit'>edit</a>
 						    </div>
 						    <div class="col-xs-4 col-sm-6">
-						        <a class='text-center' href='#'>delete</a>
+						        <a class='text-center' href='/admins/delete'>delete</a>
 						    </div>
 						</div>
 					</td>
@@ -112,10 +112,10 @@
 			 		<td>
 			 			<div class="row">
 						    <div class="col-xs-8 col-sm-6">
-						        <a class='text-center' href='#'>edit</a>
+						        <a class='text-center' href='/admins/edit'>edit</a>
 						    </div>
 						    <div class="col-xs-4 col-sm-6">
-						        <a class='text-center' href='#'>delete</a>
+						        <a class='text-center' href='/admins/delete'>delete</a>
 						    </div>
 						</div>
 					</td>

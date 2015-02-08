@@ -42,7 +42,7 @@
 		 	</thead>
 		 	<tbody  class="table table-striped">
 		 		<tr>
-			 		<td class='text-center'><a href="#">100</a></td>
+			 		<td class='text-center'><a href="/admins/show_order">100</a></td>
 			 		<td>Bob</td>
 			 		<td>9/16/2014</td>
 			 		<td>123 Dojo Way, Bellvue WA 98005</td>
@@ -62,7 +62,7 @@
 					</td>
 				<tr>
 				<tr>
-			 		<td class='text-center'><a href="#">100</a></td>
+			 		<td class='text-center'><a href="/admins/show_order">100</a></td>
 			 		<td>Bob</td>
 			 		<td>9/16/2014</td>
 			 		<td>123 Dojo Way, Bellvue WA 98005</td>
@@ -82,7 +82,7 @@
 					</td>
 				<tr>
 				<tr>
-			 		<td class='text-center'><a href="#">100</a></td>
+			 		<td class='text-center'><a href="/admins/show_order">100</a></td>
 			 		<td>Bob</td>
 			 		<td>9/16/2014</td>
 			 		<td>123 Dojo Way, Bellvue WA 98005</td>

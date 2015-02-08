@@ -44,13 +44,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Dojo eCommerce</a>
+          <a class="navbar-brand">Dojo eCommerce</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="#">Dashboard</a></li>
-            <li class="active"><a href="#about">Orders</a></li>
-            <li><a href="#contact">Products</a></li>
+            <li>Dashboard</li>
+            <li class="active"><a href="/admins/orders">Orders</a></li>
+            <li><a href="/admins/products">Products</a></li>
             <li><a href="#contact"></a></li>
             <li><a href="#contact"></a></li>
             <li><a href="#contact"></a></li>
@@ -77,7 +77,7 @@
             <li><a href="#contact"></a></li>
             <li><a href="#contact"></a></li>
             <li><a href="#contact"></a></li>
-            <li><a href="#contact">Log Off</a></li>
+            <li><a href="/admins/index">Log Off</a></li>
           </ul>
         </div><!--/.nav-collapse -->
     </nav>
@@ -94,20 +94,15 @@
 			<div class="col-md-6"></div>
 		  	<div class="col-md-2">
 				<!-- Split button -->
-				<div class="btn-group">
-					  <button type="button" class="btn btn-default">Show All</button>
-					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-					    <span class="caret"></span>
-					    <span class="sr-only">Toggle Dropdown</span>
-					  </button>
-					  <ul class="dropdown-menu" role="menu">
-					    <li><a href="#">Order in Process</a></li>
-					    <li><a href="#">Shipped</a></li>
-					  </ul>
-				</div>
+				<select name='order_status_filter'>
+                    <option value="all">Show all</option>
+                    <option value="recieved">Order in</option>
+                    <option value="process">Process</option>
+                    <option value="shipped">Shipped</option>
+                </select>
 		  	</div>
 		  	<div>
-		  		<h1>PLACEHOLDER FOR TABLE</h1>
+		  		<?php //require('partial_views_orders_table') ?>
 		  	</div>
 
 		</div>
@@ -117,22 +112,22 @@
 					<nav>
 						  <ul class="pagination center-block">
 						    <li>
-						      <a href="#" aria-label="Previous">
+						      <a href="/admins/previous" aria-label="Previous">
 						        <span aria-hidden="true">&laquo;</span>
 						      </a>
 						    </li>
-						    <li><a href="#">1</a></li>
-						    <li><a href="#">2</a></li>
-						    <li><a href="#">3</a></li>
-						    <li><a href="#">4</a></li>
-						    <li><a href="#">5</a></li>
-						    <li><a href="#">6</a></li>
-						    <li><a href="#">7</a></li>
-						    <li><a href="#">8</a></li>
-						    <li><a href="#">9</a></li>
-						    <li><a href="#">10</a></li>
+						    <li><a href="/admins/pagination">1</a></li>
+						    <li><a href="/admins/pagination">2</a></li>
+						    <li><a href="/admins/pagination">3</a></li>
+						    <li><a href="/admins/pagination">4</a></li>
+						    <li><a href="/admins/pagination">5</a></li>
+						    <li><a href="/admins/pagination">6</a></li>
+						    <li><a href="/admins/pagination">7</a></li>
+						    <li><a href="/admins/pagination">8</a></li>
+						    <li><a href="/admins/pagination">9</a></li>
+						    <li><a href="/admins/pagination">10</a></li>
 						    <li>
-						      <a href="#" aria-label="Next">
+						      <a href="/admins/next" aria-label="Next">
 						        <span aria-hidden="true">&raquo;</span>
 						      </a>
 						    </li>
