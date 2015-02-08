@@ -14,36 +14,32 @@ page_name	points	story
 
 (Home)		(1)		build homepage: welcome to Dojo eCommerce!  Click here to get started!
 
-(nav)		(1)		display on each page (require .php file)
+(nav)		(1)		display on each page (require nav.php file)
 (nav)		(1)		build dynamic shopping cart that updates with each additonal product added.  
-(nav)		(1)		when shopping cart is clicked redirect to cart page 
 
-(catalog)	(2)		display all products on load: show all, category type
-(catalog)	(2)		sidebar: product search input that will show products of that name on the page
-(catalog)   (2) 	sidebar: show categories on the sidebar with the qty
-(catalog)	(2)		when category name on the sidebar is clicked show all products in a category
-(catalog)	(2)		dropbown option to display all products by Price, Most Popular / display on load
+#1 (catalog)	(2)		display all products on load: show all, category type
+#2 (catalog)   (2) 	sidebar: show categories on the sidebar with the qty
+#3 (catalog)	(2)		sidebar: product search input that will show products of that name on the page
+#4 (catalog)	(2)		when category name on the sidebar is clicked show all products in a category
+#5 (catalog)	(2)		dropbown option to display all products by Price, Most Popular / display on load
                     order by.  This is a query order by option.
-(catalog)	(2)		display each product image & description
-(catalog) 	(2)		pagination: footer heading number of pages 1 | 2 | 3 | 4 | view all (hyperlink) || heading (first | prev | page# | next)
+#6 (catalog) 	(2)		pagination: footer heading number of pages 1 | 2 | 3 | 4 | view all (hyperlink) || heading (first | prev | page# | next)
 
-(product) 	()	go back button
-(product) 	()	display name of product, image(s), description
-(product) 	()  mulitple images of product 
-(product)	()	drop down for qty  
-(product)	()	buy button (query that inserts an order)
-(product)	()	footer: similar items, top 5 rated in the category
-(product)	()	have a popup message display when an item has been added to cart
-(product)	()	have the shopping cart updated after buy button is clicked
+#1 (product) 	()	display name of product, image(s), description
+#2 (product)	()	drop down for qty  
+#3 (product)	()	buy button (query that inserts an order)
+#4 (product)	()	have the shopping cart updated after buy button is clicked
+#5 (product) 	()	go back button
+#6 (product) 	()  mulitple images of product 
+#7 (product)	()	footer: similar items, top 5 rated in the category
+#8 (product)	()	have a popup message display when an item has been added to cart
 
-(cart)	()	Table to display items in cart Item | Price | Qty | Total
-(cart)	()	remove button next to qty
-(cart)	()	continue shopping button go back to catelog
-(cart)	()	shipping info (FN, LN, Address, City, State, Zip)
-(cart)	()	validate customer info
-(cart)	()	billing info (FN, LN, Address, City, State, Zip, CC, Sec Code, Exp)
-(cart)	()	billing info (checkbox: same as shipping) 
-(cart)	()	Pay button (generate a record that goes to orders table)
+#1 (cart)	()	Table to display items in cart Item | Price | Qty | Total
+#2 (cart)	()	remove button next to qty
+#3 (cart)	()	continue shopping button go back to catelog
+#4 (cart)	()	Pay button (generate a record that goes to orders table)
+#5 (cart)	()	validate customer info
+#6 (cart)	()	billing info (checkbox: same as shipping) 
 (cart)	()  keep customer info if click on continue shopping for later
 
 
@@ -51,35 +47,32 @@ page_name	points	story
 ADMIN
 =================================
 
-(login)	()	build page email, pw, Login button
-(login)	()	authenticate login email password
+(login)	()	build page email, pw, Login button authenticate login email password
 
 (nav)	()	Dashboard | Orders | Products | log off
 
-(orders_dashboard)	()	search input field by order id and customer name
-(orders_dashboard)	()	display orders in table
-(orders_dashboard)	()	dropdown -> show all, order in, process, shipped
-(orders_dashboard)	()	order id: hyperlink to see specific order
-(orders_dashboard)	()	show order status, select option dropdown 
-(orders_dashboard)	()	pagination, show 5 orders per page
 
-(show_order)	()	customer shipping info (name, address, city, state, zip)
-(show_order)	()	customer billing info  (name, address, city, state, zip)
-(show_order)	()	table order info: ID | Item | Price | Qty | Total
-(show_order)	()	div: Sub Total____, Shipping cost _____, Total Price ______
-(show_order)	()	order status
+#1 (orders_dashboard)	()	display orders in table 
+#2 (orders_dashboard)	()	select option to update order status -> order in, process, shipped
+#4 (orders_dashboard)	()	search input field by order id and customer name
+#3 (orders_dashboard)	()	order id: hyperlink to see specific order
+#5 (orders_dashboard)	()	pagination, show 5 orders per page
 
-(products_dashboard)	()	display all products in a table >> picture | ID | Name | Inventory Count | Qty Sold | Action 
-(products_dashboard)	()	add product button that goes to the edit product page
-(products_dashboard)	()	search products input field (not button)
-(products_dashboard)	()	Action: edit(hyperlink) delete(hyperlink)
+#1 (show_order)	()	order info: ID | Item | Price | Qty | Total  // div: Sub Total____, Shipping cost _____, Total Price ______  // order status
+#2 (show_order)	()	display customer order info
 
-(product_edit)	()	Name, Desc, Category(dropdown), add new category, images upload
-(product_edit) 	()	preview button opens up new tab with teh approprate product page
-(product_edit)	(4)	added functionality around the images
-(product_edit)	()  partial view for update or add button 
-(product_edit)	()  update button goes to update the db
-(product_edit)	()  update button goes to update the db
+#1 (products_dashboard)	()	display all products in a table >> picture | ID | Name | Inventory Count | Qty Sold | Action 
+#2 (products_dashboard)	()	delete(feature) 
+#3 (products_dashboard)	()	add product button that goes to the edit product page
+#4 (products_dashboard)	()	search products input field (not button)
+#5 (products_dashboard)	()	pagination
+
+#1 (product_edit)	()  partial view for update or add button 
+#2 (product_edit)	()  add button goes to add the db
+#3 (product_edit)	()  update button goes to update the db
+#4 (product_edit)	()	populate view -> Name, Desc, Category(dropdown), add new category, images upload
+#5 (product_edit) 	()	preview button opens up new tab with teh approprate product page
+#6 (product_edit)	(4)	added functionality around the images
 
 ==========================================
 Features II (Phase II of project)
