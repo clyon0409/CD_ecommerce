@@ -5,6 +5,7 @@ class Admins extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('Ecommerce');
 		$this->output->enable_profiler();
 	}
 
@@ -41,15 +42,26 @@ class Admins extends CI_Controller {
 
 	public function login()
 	{
-		echo 'got into login';
-		var_dump($this->input->post());
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('email', 'Email','trim|valid_email|required' );
+		$this->form_validation->set_rules('password', 'Password','trim|required' );
+		if($this->form_validation->run() == FALSE)
+		{
+			$this->session->set_flashdata('errors',validation_errors());
+			redirect('/admins/index');
+		}
 
-		$success = true;
-		if($success)
+		if($this->Ecommerce->confirm_password($this->input->post()))
 		{
 			$this->load->view('order_dashboard');
 			$this->load_order_data();
 		}
+		else
+		{
+			$this->session->set_flashdata('errors','Email and/or password invalid');
+			redirect('/admins/index');
+		}
+		
 	}
 
 	public function next()

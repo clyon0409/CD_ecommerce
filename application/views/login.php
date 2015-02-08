@@ -30,9 +30,14 @@
   <body role="document">
     <div class="container">
         <div class="row">
-          <div class="col-md-4"></div>
-          <div class="col-md-4">
-                <h1></h1>
+          <div class="col-md-3"></div>
+          <div class="col-md-5">
+<?php
+          if($this->session->flashdata('errors') != NULL)
+          {
+            echo '<h4 class="text-danger text-center"><bold>'.$this->session->flashdata('errors').'</bold></h4>';
+          }
+?>
                 <h4 class="text-center">Admin Login Page</h4>
                 <form class="form-horizontal"action='/admins/login' method='post'>
                   <div class="form-group">
