@@ -34,9 +34,9 @@
           <div class="col-md-4">
                 <h1></h1>
                 <h4 class="text-center">Admin Login Page</h4>
-                <form class="form-horizontal"action='admins/login' post='method'>
+                <form class="form-horizontal"action='/admins/login' method='post'>
                   <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                    <label for="inputEmail3" class="col-sm-2 control-label" name='email'>Email</label>
                     <div class="col-sm-10">
                       <input type="email" class="form-control" id="inputEmail3" name='email' placeholder="Email">
                     </div>
@@ -53,7 +53,7 @@
                               <div class="col-xs-8 col-sm-8">
                               </div>
                               <div class="col-xs-4 col-sm-4">
-                                <button type="submit" class="btn btn-default btn-primary">Sign in</button>
+                                <input type="submit"  class="btn btn-default btn-primary" name='submit' value='Sign in'>
                               </div>
                         </div>
                     </div>
