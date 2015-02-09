@@ -84,12 +84,15 @@
 <?php   if ($product['function'] == 'add_new') {	?>
    					<select name='category'>
 <?php   }else{ ?>
-			 		<select name='category' selected='<?= $product["category"] ?>'>
-<?php   } ?>			    	
-			      		<option value='Tshirts'>tshirts</option>
-			      		<option value='shoes'>shoes</option>
-			      		<option value='cups'>cups</option>
-			      		<option value='hats'>hats</option>
+			 		<select name='category'>
+<?php   } ?>
+<?php   				foreach ($product['category'] as $category){ ?>
+<?php 						if ($category["id"] == $product["category_id"]){ ?>
+								<option value = '<?= $category["id"] ?>' selected><?= $category["name"] ?></option>
+<?php						}else{ ?>
+								<option value = '<?= $category["id"] ?>'><?= $category["name"] ?></option>
+<?php 						} ?>
+<?php 					}?>
 			      	</select>
 			    </div>
 			  </div>
@@ -116,7 +119,7 @@
 <?php   if ($product['function'] == 'add_new') {	?>
    								<p>no picture loaded</p>
 <?php   }else{ ?>
-			 					<p><?= $product['pic_url_1'] ?></p>
+			 					<p><?= $product['images'][0] ?></p>
 <?php   } ?>							      	
 						      </div>
 						      <div class="col-xs-4 col-sm-2">
@@ -125,7 +128,11 @@
 						      <div class="col-xs-4 col-sm-3">
 						        	<div class="checkbox">
 									  <label>
-									    <input type="checkbox" value="">
+<?php   if (($product['function'] == 'edit') && ($product['main_pic_flags'][0] == 1))	{ ?>								  	
+									    <input type="checkbox" name='main_pic_1' checked>
+<?php }else{ ?>
+										<input type="checkbox" name='main_pic_1'>
+<?php    } ?>
 									    Main
 									  </label>
 									</div>
@@ -145,7 +152,7 @@
 <?php   if ($product['function'] == 'add_new') {	?>
    								<p>no picture loaded</p>
 <?php   }else{ ?>
-			 					<p><?= $product['pic_url_2'] ?></p>
+			 					<p><?= $product['images'][1] ?></p>
 <?php   } ?>							      	
 						      </div>
 						      <div class="col-xs-4 col-sm-2">
@@ -154,7 +161,11 @@
 						      <div class="col-xs-4 col-sm-3">
 						        	<div class="checkbox">
 									  <label>
-									    <input type="checkbox" value="">
+<?php   if (($product['function'] == 'edit') && ($product['main_pic_flags'][1] == 1))	{ ?>								  	
+									    <input type="checkbox" name='main_pic_2' checked>
+<?php }else{ ?>
+										<input type="checkbox" name='main_pic_2'>
+<?php    } ?>
 									    Main
 									  </label>
 									</div>
@@ -174,7 +185,7 @@
 <?php   if ($product['function'] == 'add_new') {	?>
    								<p>no picture loaded</p>
 <?php   }else{ ?>
-			 					<p><?= $product['pic_url_3'] ?></p>
+			 					<p><?= $product['images'][2] ?></p>
 <?php   } ?>							      	
 						      </div>
 						      <div class="col-xs-4 col-sm-2">
@@ -183,7 +194,11 @@
 						      <div class="col-xs-4 col-sm-3">
 						        	<div class="checkbox">
 									  <label>
-									    <input type="checkbox" value="">
+<?php   if (($product['function'] == 'edit') && ($product['main_pic_flags'][2] == 1))	{ ?>								  	
+									    <input type="checkbox" name='main_pic_3' checked>
+<?php }else{ ?>
+										<input type="checkbox" name='main_pic_3'>
+<?php    } ?>
 									    Main
 									  </label>
 									</div>

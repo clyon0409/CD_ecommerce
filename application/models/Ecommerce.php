@@ -18,6 +18,13 @@ class Ecommerce extends CI_Model {
 			return false;
 	}
 
+	function get_category()
+	{
+		$query = 'SELECT name, id FROM categories';
+		return $this->db->query($query)->result_array();
+		// var_dump($res); die();
+	}
+
 	function get_category_id($cat_name)
 	{
 		$query = 'SELECT id FROM categories WHERE name = ?';
@@ -26,8 +33,15 @@ class Ecommerce extends CI_Model {
 
 	function get_product_by_id($product_id)
 	{
-		$query = 'SELECT * FROM products WHERE id = ?';
-		return $this->db->query($query, array($product_id))->row_array();
+		$query = 'SELECT products.*, GROUP_CONCAT(images.url) as image_urls, GROUP_CONCAT(images.main_pic) as main_pics, categories.name FROM products
+				 JOIN images ON images.product_id = products.id
+				 JOIN categories ON categories.id = products.category_id  WHERE products.id = ?
+				 GROUP BY products.id';
+		$result = $this->db->query($query, array($product_id))->row_array();
+		//var_dump($result); die();
+		$result['images'] = explode(',',$result['image_urls']);
+		$result['main_pic_flags'] = explode(',',$result['main_pics']);
+		return $result;
 	}
 
 	function insert_category($cat_name)
@@ -35,6 +49,7 @@ class Ecommerce extends CI_Model {
 		$query = 'INSERT INTO categories (name) VALUES (?)';
 		$values = array($cat_name);
 	}
+
  	
 	function insert_product($data){
 		// echo 'got into model insert product</br>';
