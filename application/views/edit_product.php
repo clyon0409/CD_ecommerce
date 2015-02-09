@@ -40,14 +40,20 @@
   	}
 
   </style>
- <? php var_dump($function) ?>
+ <?php var_dump($product) ?>
   <body role="document">
    	<div class="container">
    		<div class="row">
-			  <div class="col-xs-6 col-md-11"><h3>Edit Product - ID 2</h3></div>
+
+<?php   if ($product['function'] == 'add_new') {	?>
+   			<div class="col-xs-6 col-md-11"><h3>Add Product</h3></div>
+<?php   }else{ ?>
+			<div class="col-xs-6 col-md-11"><h3>Edit Product - ID <?= $product['id'] ?></h3></div>
+<?php   } ?>   			
+
 			  <div class="col-xs-6 col-md-1"><a href='/admins/close'><span class="glyphicon glyphicon-remove text-bottom" aria-hidden="true"></a></div>
 		</div>
-<?php   if ($function == 'add_new') {	?>
+<?php   if ($product['function'] == 'add_new') {	?>
    			<form class="form-horizontal" action='<?= "/admins/insert_product" ?>' method='post'>
 <?php   }else{ ?>
 			<form class="form-horizontal" action='<?= "/admins/update_product" ?>' method='post'>
@@ -55,23 +61,35 @@
 			  <div class="form-group">
 			    <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" id="inputEmail3" name='product_name' placeholder="product name">
+<?php   if ($product['function'] == 'add_new') {	?>
+   				<input type="text" class="form-control" id="inputEmail3" name='name' placeholder="product name">
+<?php   }else{ ?>
+			 	<input type="text" class="form-control" id="inputEmail3" name='name' placeholder="<?= $product['name'] ?>">
+<?php   } ?>			    	
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="inputPassword3" class="col-sm-2 control-label">Description</label>
 			    <div class="col-sm-10">
-			      	<textarea class="form-control" rows="3" name='description'></textarea>
+<?php   if ($product['function'] == 'add_new') {	?>
+   					<textarea class="form-control" rows="3" name='description'></textarea>
+<?php   }else{ ?>
+			 		<textarea class="form-control" rows="3" name='description' placeholder='<?= $product["description"] ?>'></textarea>
+<?php   } ?>			    	
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="inputPassword3" class="col-sm-2 control-label">Categories</label>
 			    <div class="col-sm-10">
-			      	<select name='category'>
-			      		<option value='tshirts'>tshirts</option>
-			      		<option value='tshirts'>shoes</option>
-			      		<option value='tshirts'>cups</option>
-			      		<option value='tshirts'>hats</option>
+<?php   if ($product['function'] == 'add_new') {	?>
+   					<select name='category'>
+<?php   }else{ ?>
+			 		<select name='category' selected='<?= $product["category"] ?>'>
+<?php   } ?>			    	
+			      		<option value='Tshirts'>tshirts</option>
+			      		<option value='shoes'>shoes</option>
+			      		<option value='cups'>cups</option>
+			      		<option value='hats'>hats</option>
 			      	</select>
 			    </div>
 			  </div>
@@ -91,13 +109,17 @@
 					<div class="col-md-4"></div>
 					<div class="col-md-4">
 							<div class="row">
-						      <div class="col-xs-8 col-sm-3">
+						      <div class="col-xs-8 col-sm-2">
 						        <div class='image'></div>
 						      </div>
-						      <div class="col-xs-4 col-sm-3">
-						        img.png
+						      <div class="col-xs-4 col-sm-5">
+<?php   if ($product['function'] == 'add_new') {	?>
+   								<p>no picture loaded</p>
+<?php   }else{ ?>
+			 					<p><?= $product['pic_url_1'] ?></p>
+<?php   } ?>							      	
 						      </div>
-						      <div class="col-xs-4 col-sm-3">
+						      <div class="col-xs-4 col-sm-2">
 						        	<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 						      </div>
 						      <div class="col-xs-4 col-sm-3">
@@ -116,13 +138,17 @@
 					<div class="col-md-4"></div>
 					<div class="col-md-4">
 							<div class="row">
-						      <div class="col-xs-8 col-sm-3">
+						      <div class="col-xs-8 col-sm-2">
 						        <div class='image'></div>
 						      </div>
-						      <div class="col-xs-4 col-sm-3">
-						        img.png
+						      <div class="col-xs-4 col-sm-5">
+<?php   if ($product['function'] == 'add_new') {	?>
+   								<p>no picture loaded</p>
+<?php   }else{ ?>
+			 					<p><?= $product['pic_url_2'] ?></p>
+<?php   } ?>							      	
 						      </div>
-						      <div class="col-xs-4 col-sm-3">
+						      <div class="col-xs-4 col-sm-2">
 						        	<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 						      </div>
 						      <div class="col-xs-4 col-sm-3">
@@ -141,13 +167,17 @@
 					<div class="col-md-4"></div>
 					<div class="col-md-4">
 							<div class="row">
-						      <div class="col-xs-8 col-sm-3">
+						      <div class="col-xs-8 col-sm-2">
 						        <div class='image'></div>
 						      </div>
-						      <div class="col-xs-4 col-sm-3">
-						        img.png
+						      <div class="col-xs-4 col-sm-5">
+<?php   if ($product['function'] == 'add_new') {	?>
+   								<p>no picture loaded</p>
+<?php   }else{ ?>
+			 					<p><?= $product['pic_url_3'] ?></p>
+<?php   } ?>							      	
 						      </div>
-						      <div class="col-xs-4 col-sm-3">
+						      <div class="col-xs-4 col-sm-2">
 						        	<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 						      </div>
 						      <div class="col-xs-4 col-sm-3">
@@ -174,7 +204,7 @@
 							       <a type="button" class="btn btn-success" href='/admins/preview'>Preview</a>
 							      </div>
 							      <div class="col-xs-4 col-sm-4">
-<?php 							if($function == 'add_new')  { ?>
+<?php 							if($product['function'] == 'add_new')  { ?>
 							        <input type="submit" class="btn btn-info" name='submit' value='<?= "Add" ?>'>
 <?php 							}else{  ?>
  									<input type="submit" class="btn btn-info" name='submit' value='<?= "Update" ?>'>	

@@ -15,7 +15,7 @@ class Admins extends CI_Controller {
 	}
 
 	public function add_new()
-	{   $data['function']= 'add_new';
+	{   $data['product']= array('function' =>'add_new');
 		$this->load->view('edit_product', $data);
 	}
 
@@ -35,9 +35,11 @@ class Admins extends CI_Controller {
 		echo 'got into delete method';
 	}
 
-	public function edit()
+	public function edit($product_id)
 	{
-		$this->load->view('edit_product');
+		$data['product'] = $this->Ecommerce->get_product_by_id($product_id);
+		$data['product']['function'] = 'edit';
+		$this->load->view('edit_product', $data);
 	}
 
 	public function insert_product()
