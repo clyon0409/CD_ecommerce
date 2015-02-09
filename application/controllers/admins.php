@@ -15,8 +15,8 @@ class Admins extends CI_Controller {
 	}
 
 	public function add_new()
-	{
-		$this->load->view('edit_product');
+	{   $data['function']= 'add_new';
+		$this->load->view('edit_product', $data);
 	}
 
 	public function cancel()
@@ -38,6 +38,13 @@ class Admins extends CI_Controller {
 	public function edit()
 	{
 		$this->load->view('edit_product');
+	}
+
+	public function insert_product()
+	{
+		echo 'got into insert product';
+		$this->Ecommerce->insert_product($this->input->post());
+
 	}
 
 	public function login()

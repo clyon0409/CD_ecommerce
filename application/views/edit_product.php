@@ -40,18 +40,22 @@
   	}
 
   </style>
-
+ <? php var_dump($function) ?>
   <body role="document">
    	<div class="container">
    		<div class="row">
 			  <div class="col-xs-6 col-md-11"><h3>Edit Product - ID 2</h3></div>
 			  <div class="col-xs-6 col-md-1"><a href='/admins/close'><span class="glyphicon glyphicon-remove text-bottom" aria-hidden="true"></a></div>
 		</div>
-   		<form class="form-horizontal" action='/admins/update_product' method='post'>
+<?php   if ($function == 'add_new') {	?>
+   			<form class="form-horizontal" action='<?= "/admins/insert_product" ?>' method='post'>
+<?php   }else{ ?>
+			<form class="form-horizontal" action='<?= "/admins/update_product" ?>' method='post'>
+<?php   } ?>
 			  <div class="form-group">
 			    <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
 			    <div class="col-sm-10">
-			      <input type="email" class="form-control" id="inputEmail3"name='name' placeholder="product name">
+			      <input type="text" class="form-control" id="inputEmail3" name='product_name' placeholder="product name">
 			    </div>
 			  </div>
 			  <div class="form-group">
@@ -74,7 +78,7 @@
 			  <div class="form-group">
 			    <label for="inputEmail3" class="col-sm-2 control-label">Or add new category</label>
 			    <div class="col-sm-10">
-			      <input type="email" class="form-control" id="inputEmail3"name='new_category'>
+			      <input type="text" class="form-control" id="inputEmail3" name='new_category'>
 			    </div>
 			  </div>
 			  <div class="form-group">
@@ -170,7 +174,11 @@
 							       <a type="button" class="btn btn-success" href='/admins/preview'>Preview</a>
 							      </div>
 							      <div class="col-xs-4 col-sm-4">
-							        <input type="submit" class="btn btn-info" name='submit' value='Update'>
+<?php 							if($function == 'add_new')  { ?>
+							        <input type="submit" class="btn btn-info" name='submit' value='<?= "Add" ?>'>
+<?php 							}else{  ?>
+ 									<input type="submit" class="btn btn-info" name='submit' value='<?= "Update" ?>'>	
+<?php 							} ?> 														      
 							      </div>
 						    </div>
 					  </div>
