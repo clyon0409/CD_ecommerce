@@ -54,9 +54,9 @@
 			  <div class="col-xs-6 col-md-1"><a href='/admins/close'><span class="glyphicon glyphicon-remove text-bottom" aria-hidden="true"></a></div>
 		</div>
 <?php   if ($product['function'] == 'add_new') {	?>
-   			<form class="form-horizontal" action='<?= "/admins/insert_product" ?>' method='post'>
+   			<form class="form-horizontal" action='<?= "/admins/insert_product" ?>' method='post' enctype='multipart/form-data'>
 <?php   }else{ ?>
-			<form class="form-horizontal" action='<?= "/admins/update_product" ?>' method='post'>
+			<form class="form-horizontal" action='<?= "/admins/update_product" ?>' method='post' enctype='multipart/form-data'>
 <?php   } ?>
 			  <div class="form-group">
 			    <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
@@ -102,25 +102,29 @@
 			      <input type="text" class="form-control" id="inputEmail3" name='new_category'>
 			    </div>
 			  </div>
+
+<!-- ************************* File Upload section ********************************* -->
+<?php 		// echo form_open_multipart('admins/do_upload'); ?>
 			  <div class="form-group">
 			  	<label for="inputPassword3" class="col-sm-2 control-label">Images</label>
 			    <div class="col-sm-offset-2 col-sm-10">
-			      <button type="submit" class="btn btn-default">Upload</button>
+			      <input type="submit" class="btn btn-default" name='upload' value='upload'/>Upload
 			    </div>
 			  </div>
+<?php        for($i=0; $i<3; $i++){ ?>
 			  <div class="row">
-					<div class="col-md-4"></div>
-					<div class="col-md-4">
+					<div class="col-md-2"></div>
+					<div class="col-md-8">
 							<div class="row">
 						      <div class="col-xs-8 col-sm-2">
 						        <div class='image'></div>
 						      </div>
 						      <div class="col-xs-4 col-sm-5">
 <?php   if (($product['function'] == 'edit')  && (isset($product['images']))) {	?>
-   								<p><?= $product['images'][0] ?></p>
+   								 <input type='file' name='product_image_1' value="<?= $product['images'][$i] ?>" size='20'/>
 <?php   }else{ ?>
 			 					
-			 					<p>no picture loaded</p>
+							    <input type='file' name='product_image_1'size='20'/>			
 <?php   } ?>							      	
 						      </div>
 						      <div class="col-xs-4 col-sm-2">
@@ -129,10 +133,10 @@
 						      <div class="col-xs-4 col-sm-3">
 						        	<div class="checkbox">
 									  <label>
-<?php   if (($product['function'] == 'edit') && (isset($product['main_pic_flag'])) && ($product['main_pic_flags'][0] == 1))	{ ?>								  	
-									    <input type="checkbox" name='main_pic_1' checked>
+<?php   if (($product['function'] == 'edit') && (isset($product['main_pic_flag'])) && ($product['main_pic_flags'][$i] == '1'))	{ ?>								  	
+									    <input type="checkbox" name='<?= "main_pic_".$i ?>' checked>
 <?php }else{ ?>
-										<input type="checkbox" name='main_pic_1'>
+										<input type="checkbox" name='<?= "main_pic_".$i ?>'>
 <?php    } ?>
 									    Main
 									  </label>
@@ -140,77 +144,12 @@
 						      </div>
 							</div>
 					</div>
-					<div class="col-md-4"></div>
+					<div class="col-md-2"></div>
 			  </div>
-			  <div class="row">
-					<div class="col-md-4"></div>
-					<div class="col-md-4">
-							<div class="row">
-						      <div class="col-xs-8 col-sm-2">
-						        <div class='image'></div>
-						      </div>
-						      <div class="col-xs-4 col-sm-5">
-<?php   if (($product['function'] == 'edit')  && (isset($product['images']))) {	?>
-   								<p><?= $product['images'][1] ?></p>
-<?php   }else{ ?>
-			 					
-			 					<p>no picture loaded</p>
-<?php   } ?>					      	
-						      </div>
-						      <div class="col-xs-4 col-sm-2">
-						        	<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-						      </div>
-						      <div class="col-xs-4 col-sm-3">
-						        	<div class="checkbox">
-									  <label>
-<?php   if (($product['function'] == 'edit') &&(isset($product['main_pic_flag'])) && ($product['main_pic_flags'][1] == 1))	{ ?>								  	
-									    <input type="checkbox" name='main_pic_2' checked>
-<?php }else{ ?>
-										<input type="checkbox" name='main_pic_2'>
-<?php    } ?>
-									    Main
-									  </label>
-									</div>
-						      </div>
-							</div>
-					</div>
-					<div class="col-md-4"></div>
-			  </div>
-			  <div class="row">
-					<div class="col-md-4"></div>
-					<div class="col-md-4">
-							<div class="row">
-						      <div class="col-xs-8 col-sm-2">
-						        <div class='image'></div>
-						      </div>
-						      <div class="col-xs-4 col-sm-5">
-<?php   if (($product['function'] == 'edit')  && (isset($product['images']))) {	?>
-   								<p><?= $product['images'][2] ?></p>
-<?php   }else{ ?>
-			 					
-			 					<p>no picture loaded</p>
-<?php   } ?>						      	
-						      </div>
-						      <div class="col-xs-4 col-sm-2">
-						        	<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-						      </div>
-						      <div class="col-xs-4 col-sm-3">
-						        	<div class="checkbox">
-									  <label>
-<?php   if (($product['function'] == 'edit') && (isset($product['main_pic_flag'])) && ($product['main_pic_flags'][2] == 1))	{ ?>								  	
-									    <input type="checkbox" name='main_pic_3' checked>
-<?php }else{ ?>
-										<input type="checkbox" name='main_pic_3'>
-<?php    } ?>
-									    Main
-									  </label>
-									</div>
-						      </div>
-							</div>
-					</div>
-					<div class="col-md-4"></div>
-			  </div>
-	
+<?php       } ?>
+			<!-- /form> -->
+<!-- ******************************************** Buttons at bottom of page *************************** -->
+
 			  <div class="row">
 					  <div class="col-md-4"></div>
 					  <div class="col-md-4">

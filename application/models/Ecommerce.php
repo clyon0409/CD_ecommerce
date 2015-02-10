@@ -115,20 +115,22 @@ class Ecommerce extends CI_Model {
 
 	function insert_category($cat_name)
 	{
-		$query = 'INSERT INTO categories (name) VALUES (?)';
-		$values = array($cat_name);
+		$query = 'INSERT INTO categories (name, created_at, updated_at) VALUES (?, ?, ?)';
+		$values = array($cat_name, date("Y-m-d, H:i:s"), date("Y-m-d, H:i:s"));
+		return $this->db->query($query, $values);
 	}
 
  	
 	function insert_product($data){
 		// echo 'got into model insert product</br>';
-		// var_dump($data);
+		var_dump($data);
 		if (!empty($data['new_category'])){
 			$this->insert_category($data['new_category']);
-			$data['category'] = $data['new_category'];
+			$result = $this->get_category_id($data['new_category']);
+			$data['category']=$result['id'];
+			//var_dump($data);die();
 		}
 
-		$cat_id=$this->get_category_id($data['category']);
 
 		$price = floatval(rand(1,100).'.'.rand(0,99));
 		$rating = rand(1,5);
@@ -139,10 +141,9 @@ class Ecommerce extends CI_Model {
 		$amount_sold = 0;
 		$main_pic = 1;
 		$query = 'INSERT INTO products (name, price, rating, inventory_count, amount_sold, description, category_id, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?,?)';
-		$values = array($data['name'], $price, $rating, $inventory_count, $amount_sold, $data['description'], $cat_id['id'], date("Y-m-d, H:i:s"),date("Y-m-d, H:i:s"));
+		$values = array($data['name'], $price, $rating, $inventory_count, $amount_sold, $data['description'], $data['category'], date("Y-m-d, H:i:s"),date("Y-m-d, H:i:s"));
 		return $this->db->query($query, $values);
 	}
-
 
 	function qty_in_cart($cart_id)
 	{
