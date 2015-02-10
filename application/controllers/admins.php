@@ -5,7 +5,7 @@ class Admins extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Ecommerce');
+		$this->load->model('Admin');
 		$this->load->helper(array('form', 'url'));
 
 		$config = array(
@@ -25,7 +25,7 @@ class Admins extends CI_Controller {
 
 	public function add_new()
 	{   $data['product']= array('function' =>'add_new');
-		$data['product']['category'] = $this->Ecommerce->get_category();
+		$data['product']['category'] = $this->Admin->get_category();
 		$this->load->view('edit_product', $data);
 	}
 
@@ -62,13 +62,15 @@ class Admins extends CI_Controller {
 					$this->session->set_flashdata('errors',$error);
 				}
 
+				//need to take into account that only the index of the checkbox that has been
+				//selected will be set
 				if (isset($data['main_pic'][$i]))
 				{
 					$main_pic = 1;
 				}else{
 					$main_pic = 0;
 				}
-				$this->Ecommerce->insert_image_url($data['product_id'], $target_file, $main_pic);
+				$this->Admin->insert_image_url($data['product_id'], $target_file, $main_pic);
 			}
 			$i = $i + 1;
 		}
@@ -79,8 +81,8 @@ class Admins extends CI_Controller {
 
 	public function edit($product_id)
 	{
-		$data['product'] = $this->Ecommerce->get_product_by_id($product_id);
-		$data['product']['category'] = $this->Ecommerce->get_category();
+		$data['product'] = $this->Admin->get_product_by_id($product_id);
+		$data['product']['category'] = $this->Admin->get_category();
 		$data['product']['function'] = 'edit';
 		$this->load->view('edit_product', $data);
 	}
@@ -88,8 +90,8 @@ class Admins extends CI_Controller {
 	public function insert_product()
 	{
 		//echo 'got into insert product';
-		$this->Ecommerce->insert_product($this->input->post());
-		$product_id= $this->Ecommerce->get_product_id_from_name($this->input->post());
+		$this->Admin->insert_product($this->input->post());
+		$product_id= $this->Admin->get_product_id_from_name($this->input->post());
 		$this->edit($product_id['id']);
 
 	}
@@ -105,7 +107,7 @@ class Admins extends CI_Controller {
 			redirect('/admins/index');
 		}
 
-		if($this->Ecommerce->confirm_password($this->input->post()))
+		if($this->Admin->confirm_password($this->input->post()))
 		{
 			$this->load->view('order_dashboard');
 			$this->load_order_data();
