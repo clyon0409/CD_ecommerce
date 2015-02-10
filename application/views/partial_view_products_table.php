@@ -54,7 +54,7 @@
 		 	<tbody  class="table table-striped">
 		 		<tr>
 			 		<td><div class='image'></div></td>
-			 		<td>2</td>
+			 		<td>1</td>
 			 		<td>T-shirt</td>
 			 		<td>123</td>
 			 		<td>1000</td>
@@ -71,17 +71,17 @@
 				</tr>
 				<tr>
 			 		<td><div class='image'></div></td>
-			 		<td>1</td>
+			 		<td>2</td>
 			 		<td>T-shirt</td>
 			 		<td>123</td>
 			 		<td>1000</td>
 			 		<td>
 			 			<div class="row">
 						    <div class="col-xs-8 col-sm-6">
-						        <a class='text-center' href='/admins/edit'>edit</a>
+						        <a class='text-center' href='/admins/edit/2'>edit</a>
 						    </div>
 						    <div class="col-xs-4 col-sm-6">
-						        <a class='text-center' href='/admins/delete'>delete</a>
+						        <a class='text-center' href='/admins/delete/2'>delete</a>
 						    </div>
 						</div>
 					</td>
