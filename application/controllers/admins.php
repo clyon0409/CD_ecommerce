@@ -6,6 +6,15 @@ class Admins extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Ecommerce');
+		$this->load->helper(array('form', 'url'));
+
+		$config = array(
+			'upload_path' => './assets/images',
+			'allowed_types'=> 'gif|jpg|png|jpeg',
+			'overwrite' =>TRUE,
+			);
+		$this->load->library('upload', $config);
+
 		$this->output->enable_profiler();
 	}
 
@@ -36,12 +45,35 @@ class Admins extends CI_Controller {
 		echo 'got into delete method';
 	}
 
-	public function do_upload()
+	public function do_upload($data)
 	{
-		if (!$this->upload->do_upload()){
-			$error=array('error'=>$this->upload->display_errors());
-			$this->session->set_flashdata('errors',$error);
+	
+		$i = 0;
+
+        foreach ($_FILES AS $file){
+        	if (!empty($file['name'])){
+
+				$target_dir = ".\assets\images\\";
+				$target_file = $target_dir . basename($file['name']);
+
+				$res=move_uploaded_file($file["tmp_name"],$target_file);
+				if(!$res){
+					$error=array('error'=>'failed to upload file');
+					$this->session->set_flashdata('errors',$error);
+				}
+
+				if (isset($data['main_pic'][$i]))
+				{
+					$main_pic = 1;
+				}else{
+					$main_pic = 0;
+				}
+				$this->Ecommerce->insert_image_url($data['product_id'], $target_file, $main_pic);
+			}
+			$i = $i + 1;
 		}
+
+		return 1;
 
 	}
 
@@ -124,8 +156,13 @@ class Admins extends CI_Controller {
 
 	public function update_product()
 	{
-		echo 'got into update method';
-		var_dump($this->input->post());
+	
+		if ((!empty($this->input->post('upload'))) && (isset($_FILES)))
+		{
+			$res = $this->do_upload($this->input->post());
+		}
+
+		$this->edit($this->input->post('product_id'));
 	}
 
 	private function load_order_data()
