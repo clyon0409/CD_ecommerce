@@ -101,17 +101,23 @@ class Ecommerce extends CI_Model {
 
 	function get_product_by_id($product_id)
 	{
-		$query = 'SELECT products.*, GROUP_CONCAT(images.url) as image_urls, GROUP_CONCAT(images.main_pic) as main_pics, categories.name FROM products
-				 JOIN images ON images.product_id = products.id
-				 JOIN categories ON categories.id = products.category_id  WHERE products.id = ?
+		$query = 'SELECT products.*, GROUP_CONCAT(images.url) as image_urls, GROUP_CONCAT(images.main_pic) as main_pics FROM products
+				 LEFT JOIN images ON images.product_id = products.id
+				 WHERE products.id = ?
 				 GROUP BY products.id';
 		$result = $this->db->query($query, array($product_id))->row_array();
 		//var_dump($result); die();
-		$result['images'] = explode(',',$result['image_urls']);
-		$result['main_pic_flags'] = explode(',',$result['main_pics']);
+		if(isset($result['images'])) $result['images'] = explode(',',$result['image_urls']);
+		if(isset($result['main_pic_flags'])) $result['main_pic_flags'] = explode(',',$result['main_pics']);
 		return $result;
 	}
 
+	function get_product_id_from_name($data)
+	{
+		//var_dump($data);die();
+		$query = 'SELECT id FROM products WHERE  name = ?';
+		return $this->db->query($query, array($data['name']))->row_array();
+	}
 
 	function insert_category($cat_name)
 	{

@@ -108,7 +108,7 @@
 			  <div class="form-group">
 			  	<label for="inputPassword3" class="col-sm-2 control-label">Images</label>
 			    <div class="col-sm-offset-2 col-sm-10">
-			      <input type="submit" class="btn btn-default" name='upload' value='upload'/>Upload
+			      <input type="submit" class="btn btn-default" name='upload' value='upload'/>
 			    </div>
 			  </div>
 <?php        for($i=0; $i<3; $i++){ ?>

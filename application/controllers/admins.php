@@ -16,6 +16,7 @@ class Admins extends CI_Controller {
 
 	public function add_new()
 	{   $data['product']= array('function' =>'add_new');
+		$data['product']['category'] = $this->Ecommerce->get_category();
 		$this->load->view('edit_product', $data);
 	}
 
@@ -35,17 +36,29 @@ class Admins extends CI_Controller {
 		echo 'got into delete method';
 	}
 
+	public function do_upload()
+	{
+		if (!$this->upload->do_upload()){
+			$error=array('error'=>$this->upload->display_errors());
+			$this->session->set_flashdata('errors',$error);
+		}
+
+	}
+
 	public function edit($product_id)
 	{
 		$data['product'] = $this->Ecommerce->get_product_by_id($product_id);
+		$data['product']['category'] = $this->Ecommerce->get_category();
 		$data['product']['function'] = 'edit';
 		$this->load->view('edit_product', $data);
 	}
 
 	public function insert_product()
 	{
-		echo 'got into insert product';
+		//echo 'got into insert product';
 		$this->Ecommerce->insert_product($this->input->post());
+		$product_id= $this->Ecommerce->get_product_id_from_name($this->input->post());
+		$this->edit($product_id['id']);
 
 	}
 
