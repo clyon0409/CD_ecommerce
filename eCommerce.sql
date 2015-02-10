@@ -135,7 +135,6 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`cart_products` (
   `product_qty` INT NULL,
   `created_at` DATETIME NULL,
   `updated_at` DATETIME NULL,
-  PRIMARY KEY (`cart_id`, `product_id`),
   INDEX `fk_cart_has_products_products1_idx` (`product_id` ASC),
   INDEX `fk_cart_has_products_cart1_idx` (`cart_id` ASC),
   CONSTRAINT `fk_cart_has_products_cart1`
