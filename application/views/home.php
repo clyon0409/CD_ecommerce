@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Navbar Template for Bootstrap</title>
+    <title>eCommerce Home</title>
 
     <!-- Bootstrap core CSS -->
   <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
@@ -44,7 +44,7 @@
       <div class="jumbotron">
         <h1>Welcome to Dojo eCommerce</h1>       
         <p>
-          <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">Get Started &raquo;</a>
+          <a class="btn btn-lg btn-primary" href="/customers/catalog" role="button">Get Started &raquo;</a>
         </p>
       </div>
 

@@ -41,7 +41,7 @@
       <!-- Static navbar -->
      <?php require('nav_customer.php'); ?>
       <div class="row">
-        <div class="col-md-2"><u><a href="#">Go Back</a></u>
+        <div class="col-md-2"><u><a href="/customers/catalog">Go Back</a></u>
           <h4>Black Belt for staff</h4>
         </div>
         <div class="col-md-10"></div>
@@ -69,7 +69,7 @@
         <div class="col-md-4"></div>
         <div class="col-md-4"></div>
         <div class="col-md-4">
-          <form class="form-inline">
+          <form class="form-inline" action="/customers/buy" method="post">
               <select class="form-control">
                   <option>1($19.99)</option>
                   <option>2($39.99)</option>
@@ -86,23 +86,23 @@
 
       <div class="row">
         <figure class="col-md-2">
-          <div class="image_product"></div>
+           <a class="image_a" href="/customers/product"></a>
           <figcaption class="text-center">Black Belt</figcaption>
         </figure>
         <figure class="col-md-2">
-          <div class="image_product"></div>
+          <a class="image_a" href="/customers/product"></a>
           <figcaption class="text-center">Black Belt</figcaption>
         </figure>
         <figure class="col-md-2">
-          <div class="image_product"></div>
+           <a class="image_a" href="/customers/product"></a>
           <figcaption class="text-center">Black Belt</figcaption>
         </figure>
        <figure class="col-md-2">
-          <div class="image_product"></div>
+           <a class="image_a" href="/customers/product"></a>
           <figcaption class="text-center">Black Belt</figcaption>
         </figure>
         <figure class="col-md-2">
-          <div class="image_product"></div>
+           <a class="image_a" href="/customers/product"></a>
           <figcaption class="text-center">Black Belt</figcaption>
         </figure>  
       </div>

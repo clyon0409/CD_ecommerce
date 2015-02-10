@@ -2,6 +2,41 @@
 
 class Ecommerce extends CI_Model {
 
+	function add_customer($result)
+	{
+		$query = "INSERT INTO customers (first_name, last_name, address1, address2, city, state, zipcode, card_type, credit_card_number, security_code, expiration_date, created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,NOW())";
+		$values = array($result["billing_first_name"], $result["billing_last_name"], $result["billing_address"], $result["billing_address_2"], $result["billing_city"], $result["billing_state"], $result["billing_zip"], $result["billing_card_type"], $result["billing_card_number"], $result["billing_security_code"], $result["billing_expiration"]);
+		return $this->db->query($query, $values);
+	}
+
+	function add_shipping($result)
+	{
+		$query = "INSERT INTO shipping_customers (customer_id, first_name, last_name, address1, address2, city, state, zipcode, created_at) VALUES (?,?,?,?,?,?,?,?,NOW())";
+		$values = array($result['customer_id'], $result["shipping_first_name"], $result["shipping_last_name"], $result["shipping_address"], $result["shipping_address_2"], $result["shipping_city"], $result["shipping_state"], $result["shipping_zip"]);
+		return $this->db->query($query, $values);
+	}
+
+	function add_to_cart($item)
+	{
+		$query = "INSERT INTO cart_products (cart_id, product_id, product_qty, created_at) VALUES (?, ?, ?, NOW())";
+		$values = array($item['cart_id'], $item['product_id'], $item['qty']);
+		return $this->db->query($query, $values);
+	}
+
+	function cart_total($cart_id)
+	{
+		return $this->db->query("SELECT SUM(cart_products.product_qty * products.price) as item_total
+		FROM cart_products
+		JOIN products ON cart_products.product_id = products.id
+		WHERE cart_products.cart_id=$cart_id")->row_array();
+	}	
+
+	function create_cart()
+	{
+		$query = "INSERT INTO cart (created_at) VALUES (NOW())";
+		return $this->db->query($query);
+	}
+
 	function confirm_password($data)
 	{
 		$query = 'SELECT * FROM admins WHERE email = ?';
@@ -18,6 +53,21 @@ class Ecommerce extends CI_Model {
 			return false;
 	}
 
+	function delete_item($product_id, $cart_id)
+	{
+		return $this->db->query("DELETE FROM cart_products 
+		WHERE cart_id=$cart_id AND product_id=$product_id");
+	}
+
+	function display_cart($cart_id)
+	{
+		return $this->db->query("SELECT cart_products.cart_id,cart_products.product_id, products.description, products.price, SUM(cart_products.product_qty) as qty, SUM(cart_products.product_qty * products.price) as total
+		FROM cart_products
+		JOIN products ON cart_products.product_id = products.id
+		WHERE cart_products.cart_id=$cart_id
+		GROUP BY products.id")->result_array();
+	}
+
 	function get_category()
 	{
 		$query = 'SELECT name, id FROM categories';
@@ -25,11 +75,29 @@ class Ecommerce extends CI_Model {
 		// var_dump($res); die();
 	}
 
+    public function get_all_category_with_counts(){
+        return $this->db->query("SELECT categories.id, categories.name, SUM(products.inventory_count) AS count FROM categories
+                                JOIN products ON categories.id= products.category_id GROUP BY products.category_id")->result_array();
+    }
+
 	function get_category_id($cat_name)
 	{
 		$query = 'SELECT id FROM categories WHERE name = ?';
 		return $this->db->query($query, array($cat_name))->row_array();
 	}
+
+	public function get_images()
+    {
+        $query = "SELECT url FROM images";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function get_product_by_category($category_id){
+        return $this->db->query("SELECT images.url FROM images JOIN products ON images.product_id = products.id
+                                    JOIN categories ON products.category_id = categories.id 
+                                    WHERE categories.id = ?", array('id' => $category_id))->result_array();
+    }
+
 
 	function get_product_by_id($product_id)
 	{
@@ -43,6 +111,7 @@ class Ecommerce extends CI_Model {
 		$result['main_pic_flags'] = explode(',',$result['main_pics']);
 		return $result;
 	}
+
 
 	function insert_category($cat_name)
 	{
@@ -73,5 +142,21 @@ class Ecommerce extends CI_Model {
 		$values = array($data['name'], $price, $rating, $inventory_count, $amount_sold, $data['description'], $cat_id['id'], date("Y-m-d, H:i:s"),date("Y-m-d, H:i:s"));
 		return $this->db->query($query, $values);
 	}
+
+
+	function qty_in_cart($cart_id)
+	{
+		return $this->db->query("SELECT SUM(product_qty) as total_qty
+		FROM cart_products
+		WHERE cart_id=$cart_id")->result_array();
+	}
+
+	function submit_order($order)
+	{
+		$query = "INSERT INTO orders (cart_id, customer_id, shipping_costs, total, status, created_at) VALUES (?,?,?,?,?,NOW())";
+		$values = array($order['cart_id'], $order['customer_id'], '8.95', $order['total'], 'in_process');
+		return $this->db->query($query, $values);
+	}
+
 
 }

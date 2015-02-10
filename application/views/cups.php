@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Catalog</title>
+    <title>Navbar Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
   <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
@@ -46,20 +46,65 @@
             <input type="text" name="search" placeholder="product name">
             <input type="submit" name="submit" value="Search">
           </form>
-     
           <dl>
             <dt>Categories</dt>
-            <dl>
-        <?php $total =0;
-            foreach($types as $type){?>
-              <dd><a href=<?= "'/customers/get_product/". $type['id']."'"?> > <?= $type['name']." (". $type['count'].")";?></a></dd>           
-         <?php
-                $total = $total + intval($type['count']); 
-              }?>
-          <dd><a href='/customers/catalog' ><em>Show All <?= " (". $total.")";?></em></a></dd>
+            <dd><a href='/customers/shoes'>Tshirts(25)</a></dd>
+            <dd><a href='/customers/shoes'>Shoes(35)</a></dd>
+            <dd>Cups(5)</dd>
+            <dd><a href='/customers/shoes'>Hats(35)</a></dd>
+            <dd><a href='/customers/catalog' ><em>Show All(5)</em></a></dd>
           </dl>
         </div>    
-        <?php require('partial_catalog.php');?> <!-- partial view from products-->        
+
+
+        <div class="col-xs-6 col-md-8">  
+         <div class="row">
+          <div class="col-md-8"><h3>Tshirts (page 2)</h3></div>
+          <div class="col-md-4">
+            <ul class="list-inline list-unstyled ">
+              <li><a href="#">first</a></li>
+              <li><a href="#">prev</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">next</a></li>
+            </ul>            
+          </div>
+        </div>        
+          <div class="row">
+            <a class="col-md-2 image_cup" href="/customers/product"></a>
+            <a class="col-md-2 image_cup" href="/customers/product"></a>
+            <a class="col-md-2 image_cup" href="/customers/product"></a>
+            <a class="col-md-2 image_cup" href="/customers/product"></a>
+            <a class="col-md-2 image_cup" href="/customers/product"></a>       
+          </div>
+           <div class="row">
+            <a class="col-md-2 image_cup" href="/customers/product"></a>
+            <a class="col-md-2 image_cup" href="/customers/product"></a>
+            <a class="col-md-2 image_cup" href="/customers/product"></a>
+            <a class="col-md-2 image_cup" href="/customers/product"></a>
+            <a class="col-md-2 image_cup" href="/customers/product"></a>         
+          </div>
+           <div class="row">
+            <a class="col-md-2 image_cup" href="/customers/product"></a>
+            <a class="col-md-2 image_cup" href="/customers/product"></a>
+            <a class="col-md-2 image_cup" href="/customers/product"></a>
+            <a class="col-md-2 image_cup" href="/customers/product"></a>
+            <a class="col-md-2 image_cup" href="/customers/product"></a>         
+          </div>
+           <div class="row">
+            <a class="col-md-2 image_cup" href="/customers/product"></a>
+            <a class="col-md-2 image_cup" href="/customers/product"></a>
+            <a class="col-md-2 image_cup" href="/customers/product"></a>
+            <a class="col-md-2 image_cup" href="/customers/product"></a>
+            <a class="col-md-2 image_cup" href="/customers/product"></a>          
+          </div>
+           <div class="row">
+            <a class="col-md-2 image_cup" href="/customers/product"></a>
+            <a class="col-md-2 image_cup" href="/customers/product"></a>
+            <a class="col-md-2 image_cup" href="/customers/product"></a>
+            <a class="col-md-2 image_cup" href="/customers/product"></a>
+            <a class="col-md-2 image_cup" href="/customers/product"></a>          
+          </div>
+        </div>
       </div>
       <div class="row">
         <div class="col-md-4"></div>
