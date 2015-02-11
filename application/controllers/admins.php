@@ -39,10 +39,10 @@ class Admins extends CI_Controller {
 		$this->load->view('product_dashboard');
 	}
 
-	public function delete($file_index)
+	public function delete($product_id)
 	{
-		echo 'got into delete method'.$file_index;
-		var_dump($_FILES);
+		$this->Admin->delete_product($product_id);
+		redirect('/admins/products');
 	}
 
 	public function do_upload($data)

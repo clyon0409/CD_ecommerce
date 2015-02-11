@@ -18,6 +18,13 @@ class Admin extends CI_Model {
 			return false;
 	}
 
+	public function delete_product($product_id)
+	{
+		
+		$this->db->where('id', $product_id);
+		$this->db->delete('products');
+	}
+
 	public function display_invoice($id)
 	{
 		return $this->db->query("SELECT 
