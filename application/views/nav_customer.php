@@ -51,7 +51,18 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
            <ul class="nav navbar-nav navbar-right">
-              <li><a href="../navbar-fixed-top/">Shopping Cart (5)</a></li>
+              <li><a href="/customers/cart">Shopping Cart: Qty 
+
+              <?php if(!empty($this->session->userdata('cart_qty')))
+                    {
+                      echo $this->session->userdata('cart_qty');
+                    }
+                    else
+                    {
+                      echo 0;
+                    }
+              ?>
+                </a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->

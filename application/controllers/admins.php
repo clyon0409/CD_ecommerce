@@ -125,7 +125,7 @@ class Admins extends CI_Controller {
 		echo 'got into next method';
 	}
 
-	public function orders()
+	public function order_dashboard()
 	{
 		$this->load->view('order_dashboard');
 		$this->load_order_data();
@@ -151,9 +151,12 @@ class Admins extends CI_Controller {
 		$this->load_product_data();
 	}
 
-	public function show_order()
+	public function show_order($id)
 	{
-		$this->load->view('show_order');
+		$this->load->model('Admin');
+		$invoice = $this->Admin->display_invoice($id);
+		var_dump($invoice);
+		// $this->load->view('show_order', array('invoice' => $invoice));
 	}
 
 	public function update_product()
@@ -169,8 +172,9 @@ class Admins extends CI_Controller {
 
 	private function load_order_data()
 	{
-		//run query to get all order data
-		$this->load->view('partial_view_orders_table');
+		$this->load->model('Admin');
+		$orders = $this->Admin->get_orders();
+		$this->load->view('partial_view_orders_table', array('orders' => $orders));
 	}
 
 	private function load_product_data()

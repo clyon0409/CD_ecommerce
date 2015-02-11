@@ -100,7 +100,7 @@
     <div class="row">
 		  <div class="col-md-3">
 		  	<div class='customer_info'>
-			  	<p>Oder ID: 1</p>
+			  	<p>Order ID: <?=$order['id'] ?></p>
 			  	<div class='shipping_info'>
 			  		<p>Customer shipping info</p>
 			  		<p>Name: Bob </p>

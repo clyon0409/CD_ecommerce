@@ -41,7 +41,7 @@
       <!-- Static navbar -->
      <?php require('nav_customer.php'); ?>
       <div class="row">
-        <div class="col-md-2"><u><a href="/customers/catalog">Go Back</a></u>
+        <div class="col-md-2"><u><a href="#">Go Back</a></u>
           <h4>Black Belt for staff</h4>
         </div>
         <div class="col-md-10"></div>
@@ -69,11 +69,13 @@
         <div class="col-md-4"></div>
         <div class="col-md-4"></div>
         <div class="col-md-4">
-          <form class="form-inline" action="/customers/buy" method="post">
-              <select class="form-control">
-                  <option>1($19.99)</option>
-                  <option>2($39.99)</option>
-                  <option>3($49.99)</option>
+          <form class="form-inline" action='/customers/build_cart' method='post'>
+           <!--  we will input the product id via query here -->
+            <input type='hidden' name='product_id' value='5'> 
+              <select name='qty' class="form-control">
+                  <option value='1'>1($19.99)</option>
+                  <option value='2'>2($39.99)</option>
+                  <option value='3'>3($49.99)</option>
               </select> 
               <button type="submit" class="btn btn-primary">Buy</button>
           </form>      

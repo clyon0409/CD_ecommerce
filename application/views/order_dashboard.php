@@ -102,7 +102,7 @@
                 </select>
 		  	</div>
 		  	<div>
-		  		<?php //require('partial_views_orders_table') ?>
+		  		<?php // require('partial_views_orders_table.php') ?>
 		  	</div>
 
 		</div>

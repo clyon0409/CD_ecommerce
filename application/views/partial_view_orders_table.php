@@ -41,66 +41,62 @@
 		 		</tr>
 		 	</thead>
 		 	<tbody  class="table table-striped">
+<?php
+				foreach($orders as $order)
+				{
+?>
 		 		<tr>
-			 		<td class='text-center'><a href="/admins/show_order">100</a></td>
-			 		<td>Bob</td>
-			 		<td>9/16/2014</td>
-			 		<td>123 Dojo Way, Bellvue WA 98005</td>
-			 		<td>$150.00</td>
-			 		<td><div class="btn-group">
-							  <button type="button" class="btn btn-default">Action</button>
-							  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-							    <span class="caret"></span>
-							    <span class="sr-only">Toggle Dropdown</span>
-							  </button>
-							  <ul class="dropdown-menu" role="menu">
-							    <li><a href="#">Order In Process</a></li>
-							    <li><a href="#">Shipped</a></li>
-							    <li><a href="#">Cancelled</a></li>
-							  </ul>
-						</div>
+				 		<td class='text-center'><a href="/admins/show_order/<?= $order['id'] ?>"><?= $order['id'] ?></a></td>
+				 		<td><?= $order['first_name']." ".$order['last_name'] ?></td>
+				 		<td><?= $order['created_at'] ?></td>
+				 		<td><?= $order['address1']." ".$order['address2'].", ".$order['city']." ".$order['state']." ".$order['zipcode'] ?></td>
+				 		<td>$<?= $order['grand_total'] ?></td>
+				 		<td>
+<?php
+				 			if($order['status'] == 'in_process')
+				 			{
+?>
+				 			<form action='/admins/change_order_status/<?= $order['id'] ?>' method='post'>
+				 				<select name='status'>
+				 					<option value='in_process'>Order In Process</option>
+				 					<option value='shipped'>Shipped</option>
+				 					<option value='cancelled'>Cancelled</option>
+				 				</select>
+				 				<button type='submit'>Update</button>
+				 			</form>
+<?php
+				 			}
+				 			elseif($order['status'] == 'shipped')
+				 			{
+?>
+								<form action='/admins/change_order_status/<?= $order['id'] ?>' method='post'>
+					 				<select name='status'>
+					 					<option value='shipped'>Shipped</option>
+					 					<option value='in_process'>Order In Process</option>
+					 					<option value='cancelled'>Cancelled</option>
+					 				</select>
+					 				<button type='submit'>Update</button>
+					 			</form>							
+<?php	
+				 			}
+				 			else
+				 			{
+?>
+								<form action='/admins/change_order_status/<?= $order['id'] ?>' method='post'>
+					 				<select name='status'>
+					 					<option value='cancelled'>Cancelled</option>
+					 					<option value='shipped'>Shipped</option>
+					 					<option value='in_process'>Order In Process</option>
+					 				</select>
+					 				<button type='submit'>Update</button>
+					 			</form>	
+<?php						}
+?>
 					</td>
 				<tr>
-				<tr>
-			 		<td class='text-center'><a href="/admins/show_order">100</a></td>
-			 		<td>Bob</td>
-			 		<td>9/16/2014</td>
-			 		<td>123 Dojo Way, Bellvue WA 98005</td>
-			 		<td>$150.00</td>
-			 		<td><div class="btn-group">
-							  <button type="button" class="btn btn-default">Action</button>
-							  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-							    <span class="caret"></span>
-							    <span class="sr-only">Toggle Dropdown</span>
-							  </button>
-							  <ul class="dropdown-menu" role="menu">
-							    <li><a href="#">Order In Process</a></li>
-							    <li><a href="#">Shipped</a></li>
-							    <li><a href="#">Cancelled</a></li>
-							  </ul>
-						</div>
-					</td>
-				<tr>
-				<tr>
-			 		<td class='text-center'><a href="/admins/show_order">100</a></td>
-			 		<td>Bob</td>
-			 		<td>9/16/2014</td>
-			 		<td>123 Dojo Way, Bellvue WA 98005</td>
-			 		<td>$150.00</td>
-			 		<td><div class="btn-group">
-							  <button type="button" class="btn btn-default">Action</button>
-							  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-							    <span class="caret"></span>
-							    <span class="sr-only">Toggle Dropdown</span>
-							  </button>
-							  <ul class="dropdown-menu" role="menu">
-							    <li><a href="#">Order In Process</a></li>
-							    <li><a href="#">Shipped</a></li>
-							    <i><a href="#">Cancelled</a></li>
-							  </ul>
-						</div>
-					</td>
-				<tr>
+<?php
+				}
+?>			 		
 					
 		 	</body>
 		</table>

@@ -39,6 +39,7 @@ class Customers extends CI_Controller {
 			$this->Customer->add_to_cart($item);
 			$qty = $this->Customer->qty_in_cart($cart_id);
 			$this->session->set_userdata('cart_qty', $qty[0]['total_qty']);
+			redirect('/customers/product');
 		}
 		else 
 		{
@@ -52,6 +53,7 @@ class Customers extends CI_Controller {
 			$this->Customer->add_to_cart($item);
 			$qty = $this->Customer->qty_in_cart($cart_id);
 			$this->session->set_userdata('cart_qty', $qty[0]['total_qty']);
+			redirect('/customers/product');
 		}
 	}
 
@@ -128,34 +130,7 @@ class Customers extends CI_Controller {
 		$this->load->view('catalog', $array);
 	}
 	
-	public function pay_info()
-	{
-		$result = $this->input->post();
-
-
- 	 	$shipping['first_name'] = $result["shipping_first_name"];
- 	 	$shipping['last_name'] = $result["shipping_last_name"];
-  		$shipping['address'] = $result["shipping_address"];
-  		$shipping['address_2'] = $result["shipping_address_2"];
-  		$shipping['city'] = $result["shipping_city"];
-  		$shipping['state'] = $result["shipping_state"];
-  		$shipping['zip'] = $result["shipping_zip"];
-
-
-
-	  	$billing['first_name'] = $result["billing_first_name"];
-	  	$billing['last_name'] = $result["billing_last_name"];
-	  	$billing['address'] = $result["billing_address"];
-	  	$billing['address_2'] = $result["billing_address_2"];
-	 	$billing['city'] = $result["billing_city"];
-	 	$billing['state'] = $result["billing_state"];
-	 	$billing['zip'] = $result["billing_zip"];
-	 	$billing['card_type'] = $result["billing_card_type"];
-	 	$billing['card_number'] = $result["billing_card_number"];
-	 	$billing['security_code'] = $result["billing_security_code"];
-	  	$billing['billing_expiration'] = $result["billing_expiration"];
-
-	}
+	
 
 	public function search_product(){
 		$product = $this->input->post('search');
