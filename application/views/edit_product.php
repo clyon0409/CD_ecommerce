@@ -54,9 +54,9 @@
 			  <div class="col-xs-6 col-md-1"><a href='/admins/close'><span class="glyphicon glyphicon-remove text-bottom" aria-hidden="true"></a></div>
 		</div>
 <?php   if ($product['function'] == 'add_new') {	?>
-   			<form class="form-horizontal" action='<?= "/admins/insert_product" ?>' method='post' enctype='multipart/form-data'>
+   			<form class="form-horizontal" action='<?= "/admins/insert_product" ?>' method='post' enctype='multipart/form-data'>  
 <?php   }else{ ?>
-			<form class="form-horizontal" action='<?= "/admins/update_product" ?>' method='post' enctype='multipart/form-data'>
+			<form class="form-horizontal" action='<?= "/admins/update_product" ?>' method='post' enctype='multipart/form-data'> 
 <?php   } ?>
 			  <div class="form-group">
 			    <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
@@ -104,6 +104,13 @@
 			  </div>
 
 <!-- ************************* File Upload section ********************************* -->
+
+<?php
+          if($this->session->flashdata('errors') != NULL)
+          {
+            echo '<h4 class="text-danger text-center"><bold>'.$this->session->flashdata('errors').'</bold></h4>';
+          }
+?>
 <?php 		// echo form_open_multipart('admins/do_upload'); ?>
 			  <div class="form-group">
 			  	<label for="inputPassword3" class="col-sm-2 control-label">Images</label>
@@ -121,11 +128,12 @@
 						      </div>
 						      <div class="col-xs-4 col-sm-5">
 <?php   if (($product['function'] == 'edit')  && (isset($product['images']))) {	?>
-   								 <input type='file' name='product_image_1' value="<?= $product['images'][$i] ?>" size='20'/>
+   								 <input type='file' name='product_image_<?= $i ?>' value="<?= $product['images'][$i] ?>" size='20'/>
 <?php   }else{ ?>
 			 					
-							    <input type='file' name='product_image_1'size='20'/>			
-<?php   } ?>							      	
+							    <input type='file' name='product_image_<?= $i ?>'size='20'/>			
+<?php   } ?>		
+							    <input type='hidden' name='product_id' value='<?= $product["id"] ?>' size='20'/>					      	
 						      </div>
 						      <div class="col-xs-4 col-sm-2">
 						        	<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
@@ -136,7 +144,7 @@
 <?php   if (($product['function'] == 'edit') && (isset($product['main_pic_flag'])) && ($product['main_pic_flags'][$i] == '1'))	{ ?>								  	
 									    <input type="checkbox" name='<?= "main_pic_".$i ?>' checked>
 <?php }else{ ?>
-										<input type="checkbox" name='<?= "main_pic_".$i ?>'>
+										<input type="checkbox" name='<?= "main_pic[".$i."]" ?>'>
 <?php    } ?>
 									    Main
 									  </label>

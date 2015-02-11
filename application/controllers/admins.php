@@ -5,7 +5,16 @@ class Admins extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Ecommerce');
+		$this->load->model('Admin');
+		$this->load->helper(array('form', 'url'));
+
+		$config = array(
+			'upload_path' => './assets/images',
+			'allowed_types'=> 'gif|jpg|png|jpeg',
+			'overwrite' =>TRUE,
+			);
+		$this->load->library('upload', $config);
+
 		$this->output->enable_profiler();
 	}
 
@@ -16,7 +25,7 @@ class Admins extends CI_Controller {
 
 	public function add_new()
 	{   $data['product']= array('function' =>'add_new');
-		$data['product']['category'] = $this->Ecommerce->get_category();
+		$data['product']['category'] = $this->Admin->get_category();
 		$this->load->view('edit_product', $data);
 	}
 
@@ -36,19 +45,44 @@ class Admins extends CI_Controller {
 		echo 'got into delete method';
 	}
 
-	public function do_upload()
+	public function do_upload($data)
 	{
-		if (!$this->upload->do_upload()){
-			$error=array('error'=>$this->upload->display_errors());
-			$this->session->set_flashdata('errors',$error);
+	
+		$i = 0;
+
+        foreach ($_FILES AS $file){
+        	if (!empty($file['name'])){
+
+				$target_dir = ".\assets\images\\";
+				$target_file = $target_dir . basename($file['name']);
+
+				$res=move_uploaded_file($file["tmp_name"],$target_file);
+				if(!$res){
+					$error=array('error'=>'failed to upload file');
+					$this->session->set_flashdata('errors',$error);
+				}
+
+				//need to take into account that only the index of the checkbox that has been
+				//selected will be set
+				if (isset($data['main_pic'][$i]))
+				{
+					$main_pic = 1;
+				}else{
+					$main_pic = 0;
+				}
+				$this->Admin->insert_image_url($data['product_id'], $target_file, $main_pic);
+			}
+			$i = $i + 1;
 		}
+
+		return 1;
 
 	}
 
 	public function edit($product_id)
 	{
-		$data['product'] = $this->Ecommerce->get_product_by_id($product_id);
-		$data['product']['category'] = $this->Ecommerce->get_category();
+		$data['product'] = $this->Admin->get_product_by_id($product_id);
+		$data['product']['category'] = $this->Admin->get_category();
 		$data['product']['function'] = 'edit';
 		$this->load->view('edit_product', $data);
 	}
@@ -56,8 +90,8 @@ class Admins extends CI_Controller {
 	public function insert_product()
 	{
 		//echo 'got into insert product';
-		$this->Ecommerce->insert_product($this->input->post());
-		$product_id= $this->Ecommerce->get_product_id_from_name($this->input->post());
+		$this->Admin->insert_product($this->input->post());
+		$product_id= $this->Admin->get_product_id_from_name($this->input->post());
 		$this->edit($product_id['id']);
 
 	}
@@ -73,7 +107,7 @@ class Admins extends CI_Controller {
 			redirect('/admins/index');
 		}
 
-		if($this->Ecommerce->confirm_password($this->input->post()))
+		if($this->Admin->confirm_password($this->input->post()))
 		{
 			$this->load->view('order_dashboard');
 			$this->load_order_data();
@@ -124,8 +158,13 @@ class Admins extends CI_Controller {
 
 	public function update_product()
 	{
-		echo 'got into update method';
-		var_dump($this->input->post());
+	
+		if ((!empty($this->input->post('upload'))) && (isset($_FILES)))
+		{
+			$res = $this->do_upload($this->input->post());
+		}
+
+		$this->edit($this->input->post('product_id'));
 	}
 
 	private function load_order_data()
