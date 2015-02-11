@@ -80,7 +80,7 @@ class Ecommerce extends CI_Model {
                                 JOIN products ON categories.id= products.category_id GROUP BY products.category_id")->result_array();
     }
 
-	function get_category_id($cat_name)
+	public function get_category_id($cat_name)
 	{
 		$query = 'SELECT id FROM categories WHERE name = ?';
 		return $this->db->query($query, array($cat_name))->row_array();
@@ -88,18 +88,17 @@ class Ecommerce extends CI_Model {
 
 	public function get_images()
     {
-        $query = "SELECT url FROM images";
+        $query = "SELECT url FROM images WHERE main_pic=1";
         return $this->db->query($query)->result_array();
     }
 
-    public function get_product_by_category($category_id){
-        return $this->db->query("SELECT images.url FROM images JOIN products ON images.product_id = products.id
+    public function get_images_by_category($category_id){
+        return $this->db->query("SELECT images.url, categories.name FROM images JOIN products ON images.product_id = products.id
                                     JOIN categories ON products.category_id = categories.id 
                                     WHERE categories.id = ?", array('id' => $category_id))->result_array();
     }
 
-
-	function get_product_by_id($product_id)
+	public function get_product_by_id($product_id)
 	{
 		$query = 'SELECT products.*, GROUP_CONCAT(images.url) as image_urls, GROUP_CONCAT(images.main_pic) as main_pics FROM products
 				 LEFT JOIN images ON images.product_id = products.id
@@ -112,7 +111,7 @@ class Ecommerce extends CI_Model {
 		return $result;
 	}
 
-	function get_product_id_from_name($data)
+	public function get_product_id_from_name($data)
 	{
 		//var_dump($data);die();
 		$query = 'SELECT id FROM products WHERE  name = ?';

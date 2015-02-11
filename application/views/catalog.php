@@ -42,7 +42,7 @@
      <?php require('nav_customer.php'); ?>
      <div class="row">
         <div id="side_bar" class="col-xs-12 col-md-4">
-          <form>
+          <form action="/customers/search_product" method="post">
             <input type="text" name="search" placeholder="product name">
             <input type="submit" name="submit" value="Search">
           </form>
@@ -50,17 +50,24 @@
           <dl>
             <dt>Categories</dt>
             <dl>
-        <?php $total =0;
-            foreach($types as $type){?>
+<?php         $total =0;
+            foreach($types as $type){
+?>
               <dd><a href=<?= "'/customers/get_product/". $type['id']."'"?> > <?= $type['name']." (". $type['count'].")";?></a></dd>           
-         <?php
+<?php
                 $total = $total + intval($type['count']); 
-              }?>
+              }
+?>
           <dd><a href='/customers/catalog' ><em>Show All <?= " (". $total.")";?></em></a></dd>
           </dl>
         </div>    
-        <?php require('partial_catalog.php');?> <!-- partial view from products-->        
+<?php    require('partial_catalog.php'); //partial view from products
+?>         
       </div>
+
+<?php  if(count($imgs) > 20){ //show pagination if product count is greater than 20
+
+?>
       <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-6">
@@ -86,6 +93,8 @@
         </div>
         <div class="col-md-2"></div>
       </div>
+<?php  } //if case ending
+?>
 
     </div> <!-- /container -->
 

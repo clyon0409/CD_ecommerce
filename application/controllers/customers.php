@@ -1,33 +1,24 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Main extends CI_Controller {
+class Customers extends CI_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
 		//$this->output->enable_profiler();
+		$this->load->model('Ecommerce');
+	}
+
+		public function index()
+	{
+		$this->session->sess_destroy();
+		$this->load->view('home');
 	}
 
 	public function catalog()
 	{
-		$result1= $this->Ecommerce->get_images();
-		$result2 = $this->Ecommerce->get_all_category_with_counts();
-		// $datas['types'] = $result2;
-		// // var_dump($result);
-		// $images ['imgs'] = $result1;
-		//var_dump($result2); die();
-		$array = array(
-					'types' => $result2,
-					'imgs' => $result1
-					);
-		$this->load->view('catalog', $array);
-	}
-
-
-	public function index()
-	{
-		$this->session->sess_destroy();
-		$this->load->view('home');
+		$this->get_partial_catalog(null);
+		
 	}
 
 	public function product()
@@ -77,10 +68,6 @@ class Main extends CI_Controller {
 		$this->load->view('cart', array('items' => $items, 'cart_total' => $cart_total));
 	}
 
-	public function cups(){
-		$this->load->view('cups');
-	}
-
 	public function delete_item($product_id)
 	{
 		$cart_id = $this->session->userdata('cart_id');
@@ -119,15 +106,27 @@ class Main extends CI_Controller {
 
 	}
 
-	public function get_product($category_id){
-	
-		$result = $this->Ecommerce->get_product_by_category($category_id);
-		var_dump($result); die();
-		$product['images'] = $result;
-		$this->load->view('catalog', $product);
+	public function get_product($category_id){	
+		$this->get_partial_catalog($category_id);
 	}
 
-
+	private function get_partial_catalog($category_id){
+		if($category_id != null){
+			$result1 = $this->Ecommerce->get_images_by_category($category_id);
+			$category = 1;
+		}
+		else{
+			$result1= $this->Ecommerce->get_images();
+			$category = 0;
+		}
+		$result2 = $this->Ecommerce->get_all_category_with_counts();			
+		$array = array(
+					'types' => $result2,
+					'imgs' => $result1,
+					'category' => $category
+					);
+		$this->load->view('catalog', $array);
+	}
 	
 	public function pay_info()
 	{
@@ -158,8 +157,23 @@ class Main extends CI_Controller {
 
 	}
 
+	public function search_product(){
+		$product = $this->input->post('search');
+		$category = $this->Ecommerce->get_category();
+		for($i=0; $i < count($category); $i++){
+			foreach(array($category[$i]) as $value){
+				if($value['name'] == $product){
+					echo "found!";
+				}else{
+					echo "item not found!";
+				}
+
+			}
+		}
+	}
+
 
 }   //end of main controller
-}
+
 
 //end of main controller
