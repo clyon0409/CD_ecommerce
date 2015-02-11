@@ -54,6 +54,33 @@ class Admin extends CI_Model {
 			GROUP BY orders.id", array($id))->row_array();
 	}
 
+	function get_all_products_and_pic()
+	{
+		$query = 'SELECT products.*, GROUP_CONCAT(images.url) as images, GROUP_CONCAT(images.main_pic) as image_flags FROM products
+				  LEFT JOIN images ON products.id = images.product_id
+				  GROUP BY products.id';
+		$result =  $this->db->query($query)->result_array();
+		$i = 0;
+		foreach ($result as $data){
+			
+			if(!empty($data['images'])){
+				$images = explode(',', $data['images']);
+				$flags = explode(',', $data['image_flags']);
+
+				$j = 0; 
+
+				foreach ($flags as $flag){
+					if($flag){
+						$result[$i]['image_url'] = $images[$j];
+					}
+					$j=$j+1;
+				}
+			}
+			$i = $i + 1;
+		}
+		return $result;
+	}
+
 	function get_category()
 	{
 		$query = 'SELECT name, id FROM categories';

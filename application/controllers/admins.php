@@ -31,8 +31,7 @@ class Admins extends CI_Controller {
 
 	public function cancel()
 	{
-		echo 'got into cancel method';
-		//reset values
+		$this->close();
 	}
 
 	public function close()
@@ -40,9 +39,10 @@ class Admins extends CI_Controller {
 		$this->load->view('product_dashboard');
 	}
 
-	public function delete()
+	public function delete($file_index)
 	{
-		echo 'got into delete method';
+		echo 'got into delete method'.$file_index;
+		var_dump($_FILES);
 	}
 
 	public function do_upload($data)
@@ -179,8 +179,8 @@ class Admins extends CI_Controller {
 
 	private function load_product_data()
 	{
-		//run query to get all product data
-		$this->load->view('partial_view_products_table');
+		$data['products'] = $this->Admin->get_all_products_and_pic();
+		$this->load->view('partial_view_products_table',$data);
 	}
 
 

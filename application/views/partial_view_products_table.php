@@ -52,74 +52,30 @@
 		 		</tr>
 		 	</thead>
 		 	<tbody  class="table table-striped">
+<?php 			foreach ($products as $product){ ?>
 		 		<tr>
-			 		<td><div class='image'></div></td>
-			 		<td>1</td>
-			 		<td>T-shirt</td>
-			 		<td>123</td>
-			 		<td>1000</td>
+<?php             if (!empty($product['image_url'])){ ?>
+                      <td><img class='image' src='<?= $product["image_url"] ?>' ></td>
+<?php              }else{ ?>
+                     <td>No Image</td>
+<?php             } ?>
+        			 		<td><?= $product['id']; ?></td>
+        			 		<td><?= $product['name']; ?></td>
+        			 		<td><?= $product['inventory_count']; ?></td>
+        			 		<td><?= $product['amount_sold']; ?></td>
 			 		<td>
 			 			<div class="row">
 						    <div class="col-xs-8 col-sm-6">
-						        <a class='text-center' href='/admins/edit/1'>edit</a>
+          						        <a class='text-center' href='/admins/edit/<?= $product['id']; ?>'>edit</a>
 						    </div>
 						    <div class="col-xs-4 col-sm-6">
-						        <a class='text-center' href='/admins/delete/1'>delete</a>
+          						        <a class='text-center' href='/admins/delete/<?= $product['id']; ?>'>delete</a>
 						    </div>
 						</div>
 					</td>
 				</tr>
-				<tr>
-			 		<td><div class='image'></div></td>
-			 		<td>2</td>
-			 		<td>T-shirt</td>
-			 		<td>123</td>
-			 		<td>1000</td>
-			 		<td>
-			 			<div class="row">
-						    <div class="col-xs-8 col-sm-6">
-						        <a class='text-center' href='/admins/edit/2'>edit</a>
-						    </div>
-						    <div class="col-xs-4 col-sm-6">
-						        <a class='text-center' href='/admins/delete/2'>delete</a>
-						    </div>
-						</div>
-					</td>
-				</tr>
-				<tr>
-			 		<td><div class='image'></div></td>
-			 		<td>1</td>
-			 		<td>T-shirt</td>
-			 		<td>123</td>
-			 		<td>1000</td>
-			 		<td>
-			 			<div class="row">
-						    <div class="col-xs-8 col-sm-6">
-						        <a class='text-center' href='/admins/edit'>edit</a>
-						    </div>
-						    <div class="col-xs-4 col-sm-6">
-						        <a class='text-center' href='/admins/delete'>delete</a>
-						    </div>
-						</div>
-					</td>
-				</tr>
-				<tr>
-			 		<td><div class='image'></div></td>
-			 		<td>1</td>
-			 		<td>T-shirt</td>
-			 		<td>123</td>
-			 		<td>1000</td>
-			 		<td>
-			 			<div class="row">
-						    <div class="col-xs-8 col-sm-6">
-						        <a class='text-center' href='/admins/edit'>edit</a>
-						    </div>
-						    <div class="col-xs-4 col-sm-6">
-						        <a class='text-center' href='/admins/delete'>delete</a>
-						    </div>
-						</div>
-					</td>
-				</tr>
+<?php 			} ?>
+
 		 	</body>
 		</table>
     
