@@ -208,4 +208,76 @@ class Admin extends CI_Model {
 			GROUP BY products.id", array($id))->result_array();
 	}
 
+	public function update_product($product_id, $data)
+	{
+
+		var_dump($data);
+
+		if (!empty($data['name']))
+		{
+			$update_data['name'] = $data['name'];
+		}
+
+		if (!empty($data['description']))
+		{
+			$update_data['description'] = $data['description'];
+		}
+
+		if (!empty($data['category']))
+		{
+			$update_data['category_id'] = $data['category'];
+		}
+
+		$this->db->where('id',$product_id);
+		$this->db->update('products', $update_data);
+
+		if(isset($data['main_pic']))
+		{
+			$query = 'SELECT id FROM images WHERE  product_id = ?';
+			$image_id = $this->db->query($query, array('product_id'=>$product_id))->result_array();
+			
+			var_dump($image_id); 
+			if (isset($data['main_pic'][0]) && ($data['main_pic'][0] == 'on')){
+				$this->db->where('id', $image_id[0]['id']);
+				$flag['main_pic'] = 1;
+				$this->db->update('images',$flag);
+
+				$this->db->where('id', $image_id[1]['id']);
+				$flag['main_pic'] = 0;
+				$this->db->update('images',$flag);
+
+				$this->db->where('id', $image_id[2]['id']);
+				$flag['main_pic'] = 0;
+				$this->db->update('images',$flag);
+			}
+			elseif (isset($data['main_pic'][1]) && ($data['main_pic'][1] == 'on')) {
+				$this->db->where('id', $image_id[1]['id']);
+				$flag['main_pic'] = 1;
+				$this->db->update('images',$flag);
+
+				$this->db->where('id', $image_id[0]['id']);
+				$flag['main_pic'] = 0;
+				$this->db->update('images',$flag);
+
+				$this->db->where('id', $image_id[2]['id']);
+				$flag['main_pic'] = 0;
+				$this->db->update('images',$flag);
+			}
+			elseif (isset($data['main_pic'][2]) && ($data['main_pic'][2] == 'on')){
+				
+				$this->db->where('id', $image_id[2]['id']);
+				$flag['main_pic'] = 1;
+				$this->db->update('images',$flag);
+
+				$this->db->where('id', $image_id[0]['id']);
+				$flag['main_pic'] = 0;
+				$this->db->update('images',$flag);
+
+				$this->db->where('id', $image_id[1]['id']);
+				$flag['main_pic'] = 0;
+				$this->db->update('images',$flag);
+			}
+		}
+	}
+
 }

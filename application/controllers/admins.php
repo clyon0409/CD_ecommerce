@@ -36,7 +36,7 @@ class Admins extends CI_Controller {
 
 	public function close()
 	{
-		$this->load->view('product_dashboard');
+		$this->products();
 	}
 
 	public function delete($product_id)
@@ -47,6 +47,14 @@ class Admins extends CI_Controller {
 
 	public function do_upload($data)
 	{
+	
+		//do not allow a user to upload photos without product name defined
+		if(empty($data['name']))
+		{
+			$error=array('error'=>'Please provide a product name');
+			$this->session->set_flashdata('errors',$error);
+			$this->add_new();
+		}
 	
 		$i = 0;
 
@@ -75,6 +83,9 @@ class Admins extends CI_Controller {
 			$i = $i + 1;
 		}
 
+		$error=array('error'=>'Files successfully added  to database');
+		$this->session->set_flashdata('errors',$error);
+
 		return 1;
 
 	}
@@ -89,7 +100,13 @@ class Admins extends CI_Controller {
 
 	public function insert_product()
 	{
-		//echo 'got into insert product';
+		if (empty($this->input->post('name')))
+		{
+			$error=array('error'=>'Please provide a product name');
+			$this->session->set_flashdata('errors',$error);
+			$this->add_new();
+		}
+		
 		$this->Admin->insert_product($this->input->post());
 		$product_id= $this->Admin->get_product_id_from_name($this->input->post());
 		$this->edit($product_id['id']);
@@ -159,13 +176,17 @@ class Admins extends CI_Controller {
 		$this->load->view('show_order', array('order' => $order, 'items' => $items));
 	}
 
-	public function update_product()
+	public function update_product($product_id)
 	{
+		//this method gets called when user submits through the update button on
+		//the edit product view
 	
 		if ((!empty($this->input->post('upload'))) && (isset($_FILES)))
 		{
 			$res = $this->do_upload($this->input->post());
 		}
+
+		$this->Admin->update_product($product_id, $this->input->post());
 
 		$this->edit($this->input->post('product_id'));
 	}
