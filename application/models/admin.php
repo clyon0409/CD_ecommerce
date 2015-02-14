@@ -96,8 +96,8 @@ class Admin extends CI_Model {
 	}
 
     public function get_all_category_with_counts(){
-        return $this->db->query("SELECT categories.id, categories.name, SUM(products.inventory_count) AS count FROM categories
-                                JOIN products ON categories.id= products.category_id GROUP BY products.category_id")->result_array();
+        return $this->db->query("SELECT categories.id, categories.name, count(categories.id) AS count FROM categories
+                                JOIN products ON categories.id= products.category_id GROUP BY categories.id")->result_array();
     }
 
 	function get_category_id($cat_name)
@@ -108,7 +108,7 @@ class Admin extends CI_Model {
 
 	public function get_images()
     {
-        $query = "SELECT url FROM images";
+        $query = "SELECT url FROM images WHERE main_pic=1";
         return $this->db->query($query)->result_array();
     }
 
@@ -121,10 +121,10 @@ class Admin extends CI_Model {
 			ORDER BY orders.created_at DESC")->result_array();
 	}
 
-    public function get_product_by_category($category_id){
-        return $this->db->query("SELECT images.url FROM images JOIN products ON images.product_id = products.id
+    public function get_images_by_category($category_id){
+        return $this->db->query("SELECT images.url, categories.name FROM images JOIN products ON images.product_id = products.id
                                     JOIN categories ON products.category_id = categories.id 
-                                    WHERE categories.id = ?", array('id' => $category_id))->result_array();
+                                    WHERE categories.id = ? And images.main_pic =?", array('id' => $category_id, 'main_pic'=> 1))->result_array();
     }
 
 

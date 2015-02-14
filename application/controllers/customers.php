@@ -5,8 +5,9 @@ class Customers extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		//$this->output->enable_profiler();
-		$this->load->model('Ecommerce');
+		$this->output->enable_profiler();
+		$this->load->model('Customer');
+		$this->load->model('Admin');
 	}
 
 		public function index()
@@ -114,37 +115,30 @@ class Customers extends CI_Controller {
 
 	private function get_partial_catalog($category_id){
 		if($category_id != null){
-			$result1 = $this->Ecommerce->get_images_by_category($category_id);
-			$category = 1;
+			$result1 = $this->Customer->get_images_by_category($category_id);
+			$category = 1; //category selected
 		}
 		else{
-			$result1= $this->Ecommerce->get_images();
+			$result1= $this->Admin->get_images();
 			$category = 0;
 		}
-		$result2 = $this->Ecommerce->get_all_category_with_counts();			
+		$this->load_partial_view_catalog($result1, $category);
+	}
+
+	private function load_partial_view_catalog($result1, $category){
+		$result2 = $this->Admin->get_all_category_with_counts();			
 		$array = array(
 					'types' => $result2,
 					'imgs' => $result1,
 					'category' => $category
 					);
 		$this->load->view('catalog', $array);
-	}
-	
-	
+	}	
 
 	public function search_product(){
 		$product = $this->input->post('search');
-		$category = $this->Ecommerce->get_category();
-		for($i=0; $i < count($category); $i++){
-			foreach(array($category[$i]) as $value){
-				if($value['name'] == $product){
-					echo "found!";
-				}else{
-					echo "item not found!";
-				}
-
-			}
-		}
+		$result1 = $this->Customer->get_search_item($product);
+		$this->load_partial_view_catalog($result1,0);
 	}
 
 

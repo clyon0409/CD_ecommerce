@@ -72,12 +72,11 @@ class Ecommerce extends CI_Model {
 	{
 		$query = 'SELECT name, id FROM categories';
 		return $this->db->query($query)->result_array();
-		// var_dump($res); die();
 	}
 
     public function get_all_category_with_counts(){
-        return $this->db->query("SELECT categories.id, categories.name, SUM(products.inventory_count) AS count FROM categories
-                                JOIN products ON categories.id= products.category_id GROUP BY products.category_id")->result_array();
+        return $this->db->query("SELECT categories.id, categories.name, count(categories.id) AS count FROM categories
+                                JOIN products ON categories.id= products.category_id GROUP BY categories.id")->result_array();
     }
 
 	public function get_category_id($cat_name)
@@ -95,7 +94,7 @@ class Ecommerce extends CI_Model {
     public function get_images_by_category($category_id){
         return $this->db->query("SELECT images.url, categories.name FROM images JOIN products ON images.product_id = products.id
                                     JOIN categories ON products.category_id = categories.id 
-                                    WHERE categories.id = ?", array('id' => $category_id))->result_array();
+                                    WHERE categories.id = ? And images.main_pic =?", array('id' => $category_id, 'main_pic'=> 1))->result_array();
     }
 
 	public function get_product_by_id($product_id)
@@ -162,6 +161,29 @@ class Ecommerce extends CI_Model {
 		$query = "INSERT INTO orders (cart_id, customer_id, shipping_costs, total, status, created_at) VALUES (?,?,?,?,?,NOW())";
 		$values = array($order['cart_id'], $order['customer_id'], '8.95', $order['total'], 'in_process');
 		return $this->db->query($query, $values);
+	}
+
+	function get_search_item($product){
+		//var_dump($category); die();
+		$main_pic =1;
+		$search = "%".$product. "%";
+						
+		$query = "SELECT images.url, categories.name FROM images join products ON products.id = images.product_id
+					JOIN categories ON products.category_id = categories.id 
+					WHERE categories.name LIKE ? and images.main_pic = ?";
+		$result = $this->db->query($query, array('text' => $search , 'main_pic' => 1 ))->result_array(); 
+
+		//var_dump($result); die();
+
+		//search product table
+		if(empty($result)){
+			$query = "SELECT images.url, categories.name FROM images join products ON products.id = images.product_id
+					JOIN categories ON products.category_id = categories.id 
+					WHERE products.name LIKE ? and images.main_pic = ?";
+			$result = $this->db->query($query, array('text' => $search , 'main_pic' => 1 ))->result_array();
+		}	
+
+		return $result;	
 	}
 
 

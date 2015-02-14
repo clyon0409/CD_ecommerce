@@ -66,4 +66,27 @@ class Customer extends CI_model {
 		return $this->db->query($query, $values);
 	}
 
+	function get_search_item($product){
+		//var_dump($category); die();
+		$main_pic =1;
+		$search = "%".$product. "%";
+						
+		$query = "SELECT images.url, categories.name FROM images join products ON products.id = images.product_id
+					JOIN categories ON products.category_id = categories.id 
+					WHERE categories.name LIKE ? and images.main_pic = ?";
+		$result = $this->db->query($query, array('text' => $search , 'main_pic' => 1 ))->result_array(); 
+
+		//var_dump($result); die();
+
+		//search product table
+		if(empty($result)){
+			$query = "SELECT images.url, categories.name FROM images join products ON products.id = images.product_id
+					JOIN categories ON products.category_id = categories.id 
+					WHERE products.name LIKE ? and images.main_pic = ?";
+			$result = $this->db->query($query, array('text' => $search , 'main_pic' => 1 ))->result_array();
+		}	
+
+		return $result;	
+	}
+
 }
